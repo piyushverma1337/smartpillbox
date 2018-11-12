@@ -1,0 +1,55 @@
+.icon-block {
+	padding: 0 15px;
+}
+
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.unselectable {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	/* animation */
+	border: none;
+	color: black;
+	padding: 16px 32px;
+	text-align: center;
+	font-size: 16px;
+	transition: 0.3s;
+}
+
+.unselectable:hover {
+	background-color: #3e8e41;
+	color: white;
+}
+
+body {
+	/* background-color: #F5F5F5; */
+	background-image: url("../images/doodles.png");
+}
+
+@media only screen and (max-width: 600px) {
+	#dayText {
+		font-size: inherit;
+	}
+
+	.card-content {
+		padding-left: 15px !important;
+	}
+
+}
+
+.card.z-depth-2 {
+	height: 170px !important;
+}
+
+.input-field label {
+	color: #fff !important;
+}
+
+input {
+	border-bottom: 1px solid #ffffff !important;
+}

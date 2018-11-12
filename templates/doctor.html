@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<title>Smart Pillbox</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<!-- Favoicon -->
+	<link rel="shortcut icon" type="image/png" href="/static/images/favicon.png" />
+	<!-- Progressive -->
+	<link rel="manifest" href="/static/manifest.json">
+</head>
+
+<body>
+	<nav class="light-blue" role="navigation">
+		<div class="nav-wrapper container">
+			<a href="/" id="logo-container" class="brand-logo">
+				<img style="height: 30px;" src="/static/images/favicon.png">
+				SpB
+			</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#">Assistance</a></li>
+			</ul>
+
+			<ul id="nav-mobile" class="sidenav">
+				<li><a href="#">Navbar Link</a></li>
+			</ul>
+			<!-- <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="section">
+			<div class="card z-depth-4" style="padding:10px 20px 10px 20px; background-color: #0088ffab;">
+				<h5 class="white-text" style="padding-left: 5px; font-style: italic;">Tracker</h5>
+				<div class="card lighten-4" style="padding: 10px;">
+					<div class="row" style="font-style: italic;">
+						<h6 class="col" style="opacity: 0.5; padding: 0px !important;">Month 1</h6>
+						<i class="col material-icons" style="padding-top: 10px;">arrow_forward</i>
+						<h6 class="col" style="opacity: 0.5; padding: 0px !important;">Month 2</h6>
+						<i class="col material-icons" style="padding-top: 10px;">arrow_forward</i>
+						<h6 id="errorMonth" class="col yellow-text" style="padding: 0px !important;">Month 3</h6>
+						<i class="col material-icons" style="padding-top: 10px;">arrow_forward</i>
+						<h6 class="col" style="opacity: 0.5; padding: 0px !important;">Month 4</h6>
+						<i class="col material-icons" style="padding-top: 10px;">arrow_forward</i>
+						<h6 id="goodMonth" class="col">Month 5</h6>
+					</div>
+					<div class="progress light-green accent-1">
+						<div class="determinate green" style="width: 80%"></div>
+					</div>
+					<p id="progressMessage" style="font-style: italic;">
+						<i class="material-icons">star</i>
+						Month 5 of treatment, Good progress!
+					</p>
+				</div>
+				<div class="card">
+					<ul class="collection">
+						<li class="collection-item avatar">
+							<i class="material-icons circle green">looks_one</i>
+							<span class="title">How are you feeling?</span>
+							<p id="a1"></p>
+						</li>
+						<li class="collection-item avatar">
+							<i class="material-icons circle green">looks_two</i>
+							<span class="title">Do you feel any nausea?</span>
+							<p id="a2"></p>
+						</li>
+						<li class="collection-item avatar">
+							<i class="material-icons circle green">looks_3</i>
+							<span class="title">Have you had any headaches post medicine?</span>
+							<p id="a3"></p>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="/static/js/materialize.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	<!-- <script src="/static/js/init.js"></script> -->
+	<script>
+		$.ajax({
+			type: "GET",
+			url: "/feedbackget",
+			success: function (response) {
+				answers = JSON.parse(response.answer);
+				console.log(response.answer);
+				$("#a1").text(answers[0]);
+				$("#a2").text(answers[1]);
+				$("#a3").text(answers[2]);
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		});
+		$("#errorMonth").click(function () {
+			$("#progressMessage").empty();
+			$("#progressMessage").append(
+				'<i class="material-icons">error</i> Month 3, Medcine was missed for 3 days. August 15th, August 16th, August 17th'
+			);
+		});
+
+		$("#goodMonth").click(function () {
+			$("#progressMessage").empty();
+			$("#progressMessage").append('<i class="material-icons">star</i> Month 5 of treatment, Good progress!');
+		});
+	</script>
+</body>
+
+</html>
