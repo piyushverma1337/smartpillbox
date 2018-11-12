@@ -3,7 +3,7 @@ days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sun
 var demo = false;
 
 //countdown
-var countDownDate = new Date("Oct 20, 2018 20:30:00").getTime();
+var countDownDate = new Date("Dec 20, 2018 20:30:00").getTime();
 var x = setInterval(function () {
 	var now = new Date().getTime();
 	var distance = countDownDate - now;
