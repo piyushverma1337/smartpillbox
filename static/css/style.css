@@ -53,3 +53,7 @@ body {
 input {
 	border-bottom: 1px solid #ffffff !important;
 }
+
+.row {
+	display: flex;
+}
