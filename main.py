@@ -15,13 +15,13 @@ answers = []
 
 @socketio.on('appconnected')
 def handle_appconnect():
-	print('App connected')
+	print('[INFO]App connected')
 	webapp.append(request.sid)
 
 
 @socketio.on('deviceconnected')
 def handle_deviceconnect():
-	print('Device connected')
+	print('[INFO]Device connected')
 	device.append(request.sid)
 
 
@@ -49,6 +49,7 @@ def status(state):
 
 @socketio.on('buzz')
 def on_buzz():
+	print('buzz')
 	socketio.emit('findme', room=device[-1])
 
 
@@ -58,12 +59,12 @@ def on_time():
 	# email
 	day = datetime.datetime.now().strftime("%A")
 	gmail_user = "smartpillbox1@gmail.com"
-	gmail_password = ""
+	gmail_password = "Atos@2018"
 	msg = EmailMessage()
 	msg.set_content(f"Its time to take your {day} pills.\n\nRegards\nPillbox")
 	msg['Subject'] = "Please take your pills!"
 	msg['From'] = "smartpillbox1@gmail.com"
-	msg['To'] = "piyushverma005@gmail.com"
+	msg['To'] = "ganuganu@gmail.com"
 	try:
 		server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
 		server.ehlo()
@@ -80,4 +81,4 @@ def on_time():
 
 if __name__ == "__main__":
 	socketio.run(app, host='0.0.0.0', port=int(os.getenv("PORT")), debug=False)
-	#socketio.run(app, debug=True)
+	#socketio.run(app, host='0.0.0.0', debug=True)
