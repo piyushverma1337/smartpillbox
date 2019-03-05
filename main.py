@@ -23,6 +23,7 @@ def handle_appconnect():
 def handle_deviceconnect():
 	print('[INFO]Device connected')
 	device.append(request.sid)
+	socketio.emit('dvc', room=webapp[-1])
 
 
 @app.route("/")
@@ -80,5 +81,7 @@ def on_time():
 
 
 if __name__ == "__main__":
-	socketio.run(app, host='0.0.0.0', port=int(os.getenv("PORT")), debug=False)
-	#socketio.run(app, host='0.0.0.0', debug=True)
+	if os.getenv("PORT"):
+		socketio.run(app, host='0.0.0.0', port=int(os.getenv("PORT")), debug=False)
+	else:
+		socketio.run(app, host='0.0.0.0', debug=True)

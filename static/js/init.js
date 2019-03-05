@@ -3,7 +3,7 @@ days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sun
 var demo = false;
 
 //countdown
-var countDownDate = new Date("Dec 20, 2018 20:30:00").getTime();
+var countDownDate = new Date("Mar 29, 2019 20:30:00").getTime();
 var x = setInterval(function () {
 	var now = new Date().getTime();
 	var distance = countDownDate - now;
@@ -24,58 +24,49 @@ var x = setInterval(function () {
 
 
 
-//socketio
-var socket = io.connect('https://' + document.domain + ':' + location.port);
+//websock
+var ws = new WebSocket("ws://192.168.1.3/ws");
 // verify our websocket connection is established
-socket.on('connect', function () {
+ws.onopen = function () {
 	console.log('Websocket connected!');
-	socket.emit('appconnected');
-});
+};
 
-socket.on('update', function (status) {
+ws.onmessage = function (msg) {
+	console.log(msg);
+	msg = msg.data.split('');
 	$("#mtwDiv").empty();
 	$("#tfsDiv").empty();
 	$("#sDiv").empty();
 	var color = "";
-	for (var i = 0; i < 7; i++) {
-		switch (status[i]) {
-			case "done_all":
+	var status = "";
+	for (var i = 0; i < 8; i++) {
+		switch (msg[i]) {
+			case "0":
 				color = "green";
+				status = "done_all";
 				break;
-			case "flash_on":
+			case "1":
 				color = "yellow pulse";
+				status = "flash_on";
 				break;
-			case "done":
+			case "2":
 				color = "grey";
-				break;
-			case "error":
-				color = "red";
+				status = "event";
 				break;
 		}
-		if (i < 3) {
-			$("#mtwDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + days[i] + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status[i] + '</i></a></div></div></div>');
-		} else if (i < 6) {
-			$("#tfsDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + days[i] + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status[i] + '</i></a></div></div></div>');
+		if (i < 4) {
+			$("#mtwDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + i + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status + '</i></a></div></div></div>');
+		} else if (i < 8) {
+			$("#tfsDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + i + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status + '</i></a></div></div></div>');
 		} else {
-			$("#sDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + days[i] + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status[i] + '</i></a></div></div></div>');
+			$("#sDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + i + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status + '</i></a></div></div></div>');
 		}
 	}
-});
+};
 
-socket.on('email', function (status) {
-	if (status) {
-		M.toast({
-			html: 'Email alert sent!'
-		});
-	} else {
-		M.toast({
-			html: 'Email alert failed!'
-		});
-	}
-});
 
 $("#findDevice").click(function () {
-	socket.emit('buzz');
+	ws.send('findme');
 });
 //
 
@@ -84,7 +75,7 @@ $("#nextPill").click(function () {
 	$(this).html("0h 0m 0s");
 	demo = !demo;
 	if (demo) {
-		socket.emit('itstime');
+		ws.send('pilltime');
 	}
 });
 //
