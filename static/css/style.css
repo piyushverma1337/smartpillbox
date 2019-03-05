@@ -57,3 +57,51 @@ input {
 .row {
 	display: flex;
 }
+
+.pill-box-container {
+  border-radius: 4px;
+  padding: 0px !important;
+}
+
+.pill-box {
+  border-radius: 4px;
+  padding-bottom: 50%;
+  background-size: cover;
+  background-image: url("../images/pillbox.jpg");
+}
+
+.pills-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 3%;
+}
+
+.pill {
+  position: relative;
+  height: 50%;
+  padding-top: 4% !important;
+}
+.pill-image {
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../images/pill.png");
+}
+
+.pill-indicator {
+  position: absolute;
+  top: 2%;
+  left: -1%;
+  width: 23.4%;
+  height: 25%;
+  line-height: 100%;
+}
+
+.pill-indicator > i {
+  line-height: 190%;
+  font-size: 1.5vw;
+  width: 100%;
+  height: 100%;
+}
