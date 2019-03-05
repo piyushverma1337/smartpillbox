@@ -37,8 +37,24 @@ ws.onmessage = function (msg) {
 	$("#mtwDiv").empty();
 	$("#tfsDiv").empty();
 	$("#sDiv").empty();
-	var color = "";
-	var status = "";
+  $("#pillsContainer").empty();
+
+  let styleMap = {
+    '0': { color: 'green', status: 'done_all' },
+    '1': { color: 'yellow pulse', status: 'flash_on' },
+    '2': { color: 'grey', status: 'event' }
+  }
+	msg.forEach(i => {
+    $("#pillsContainer").append(
+      `<div class="pill col s3">` +
+        ((i !== '0') ? `<div class="pill-image"></div>` : '') +
+        `<a class="pill-indicator btn-floating ${styleMap[i].color}"><i class="material-icons">${styleMap[i].status}</i></a>
+      </div>
+      `
+    );
+  });
+	/* var color = "";
+	var status = ""; 
 	for (var i = 0; i < 8; i++) {
 		switch (msg[i]) {
 			case "0":
@@ -60,8 +76,8 @@ ws.onmessage = function (msg) {
 			$("#tfsDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + i + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status + '</i></a></div></div></div>');
 		} else {
 			$("#sDiv").append('<div class="col s4"><div class="card"><div class="card-content"><span class="card-title">' + i + '</span><a class="btn-floating btn-large ' + color + '"><i class="material-icons">' + status + '</i></a></div></div></div>');
-		}
-	}
+    } 
+	} */
 };
 
 
@@ -145,3 +161,21 @@ $("#goodMonth").click(function () {
 	$("#progressMessage").empty();
 	$("#progressMessage").append('<i class="material-icons">star</i> Month 5 of treatment, Good progress!');
 });
+
+// test // remove later
+let msg = '00022101'.split('');
+$("#pillsContainer").empty();
+let styleMap = {
+  '0': { color: 'green', status: 'done_all' },
+  '1': { color: 'yellow pulse', status: 'flash_on' },
+  '2': { color: 'grey', status: 'event' }
+};
+	msg.forEach(i => {
+    $("#pillsContainer").append(
+      `<div class="pill col s3">` +
+        ((i !== '0') ? `<div class="pill-image"></div>` : '') +
+        `<a class="pill-indicator btn-floating ${styleMap[i].color}"><i class="material-icons">${styleMap[i].status}</i></a>
+      </div>
+      `
+    );
+  });
