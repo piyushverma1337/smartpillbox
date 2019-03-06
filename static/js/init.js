@@ -31,12 +31,10 @@ ws.onopen = function () {
 	console.log('Websocket connected!');
 };
 
+let msgOld = [];
 ws.onmessage = function (msg) {
 	console.log(msg);
 	msg = msg.data.split('');
-	$("#mtwDiv").empty();
-	$("#tfsDiv").empty();
-	$("#sDiv").empty();
   $("#pillsContainer").empty();
 
   var styleMap = {
@@ -44,15 +42,26 @@ ws.onmessage = function (msg) {
     '1': { color: 'yellow pulse', status: 'flash_on' },
     '2': { color: 'grey', status: 'event' }
   }
-	msg.forEach(i => {
-    $("#pillsContainer").append(
-      `<div class="pill col s3">` +
-        ((i !== '0') ? `<div class="pill-image"></div>` : '') +
-        `<a class="pill-indicator btn-floating ${styleMap[i].color}"><i class="material-icons">${styleMap[i].status}</i></a>
-      </div>
-      `
-    );
+	msg.forEach((i, inx) => {
+    let str = `<div class="pill col s3">`;
+    if (i !== '0') {
+      if (!msgOld[inx]) {
+        str += `<div class="pill-image delayed-animation" data-av-animation="bounceIn"></div>`;
+      } else {
+        str += `<div class="pill-image" data-av-animation="noAnimation"></div>`;
+      }
+    } else {
+      if (msgOld[inx] && msgOld[inx] !== i) {
+        str += `<div class="pill-image bounceOut animated" data-av-animation="bounceOut"></div>`
+      }
+    }
+    str += `<a class="pill-indicator btn-floating ${styleMap[i].color}"><i class="material-icons">${styleMap[i].status}</i></a>
+            </div>
+           `
+    $("#pillsContainer").append(str);
+    msgOld[inx] = i;
   });
+  $('.pill-image').AniView();
 };
 
 
@@ -136,3 +145,10 @@ $("#goodMonth").click(function () {
 	$("#progressMessage").empty();
 	$("#progressMessage").append('<i class="material-icons">star</i> Month 5 of treatment, Good progress!');
 });
+
+
+var animationOptions = {
+  animateThreshold: 200,
+  scrollPollInterval: 20
+}
+$('.pills-container-image').AniView();
