@@ -25,7 +25,7 @@ var x = setInterval(function () {
 
 
 //websock
-var ws = new WebSocket("ws://192.168.1.3/ws");
+var ws = new WebSocket("ws://192.168.0.108/ws");
 // verify our websocket connection is established
 ws.onopen = function () {
 	console.log('Websocket connected!');
@@ -39,7 +39,7 @@ ws.onmessage = function (msg) {
 	$("#sDiv").empty();
   $("#pillsContainer").empty();
 
-  let styleMap = {
+  var styleMap = {
     '0': { color: 'green', status: 'done_all' },
     '1': { color: 'yellow pulse', status: 'flash_on' },
     '2': { color: 'grey', status: 'event' }
