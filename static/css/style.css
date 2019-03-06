@@ -71,23 +71,27 @@ input {
 }
 
 .pills-container-image {
-  top: -100%;
+  /* top: -100%; */
   position: absolute;
   width: 100%;
   height: 200%;
   background-size: contain;
   background-image: url("../images/pillbox.jpg");
-  background-position: bottom;
+  /* background-position: bottom; */
 }
 
 .pills-container {
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-left: 3%;
+  /* padding-left: 3%;
   padding-right: 4%;
   padding-top: 2%;
-  padding-bottom: 4%;
+  padding-bottom: 4%; */
+  padding-left: 3%;
+  padding-right: 4%;
+  padding-top: 4%;
+  padding-bottom: 3%;
 }
 
 .pill {
@@ -129,10 +133,10 @@ input {
   -vendor-animation-delay: 1.5s;
 }
 
-@-webkit-keyframes slideInUp {
+@-webkit-keyframes slideInDown {
   from {
-    -webkit-transform: translate3d(0, 45%, 0);
-    transform: translate3d(0, 45%, 0);
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
     visibility: visible;
   }
 
@@ -142,10 +146,10 @@ input {
   }
 }
 
-@keyframes slideInUp {
+@keyframes slideInDown {
   from {
-    -webkit-transform: translate3d(0, 45%, 0);
-    transform: translate3d(0, 45%, 0);
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
     visibility: visible;
   }
 
